@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-model</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" :value="message" @input="valueChange">
+        <p>{{message}}</p>
+        <hr>
+        <label for="male">
+            <input type="radio" name="sex" value="男" id="male" v-model="sex">男
+        </label>
+        <label for="female">
+            <input type="radio" name="sex" value="女" id="female" v-model="sex">女
+        </label>
+        <p>您选择的是: {{sex}}</p>
+        <hr>
+        <label for="agree">
+            <input type="checkbox" id="agree" v-model="isAgree">同意协议
+        </label>
+        <p>您选择的是：{{isAgree}}</p>
+        <button :disabled="!isAgree">下一步</button>
+        <hr>
+        <!-- <label for=""> -->
+        <input type="checkbox" value="看书" v-model="hobbies">看书
+        <input type="checkbox" value="学习" v-model="hobbies">学习
+        <input type="checkbox" value="听歌" v-model="hobbies">听歌
+        <input type="checkbox" value="睡觉" v-model="hobbies">睡觉
+        <!-- </label> -->
+        <p>您选择的爱好是：{{hobbies}}</p>
+        <hr>
+        <!-- 选择一个 -->
+        <select name="abc" v-model="fruit">
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+            <option value="d">d</option>
+        </select>
+        <p>您选择的是：{{fruit}}</p>
+        <!-- 选择多个 按住ctrl键-->
+        <select name="abcd" v-model="fruits" multiple>
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+            <option value="d">d</option>
+        </select>
+        <p>您选择的是：{{fruits}}</p>
+        <hr>
+        <!-- 值绑定 -->
+        <label v-for="item in array">
+            <input type="checkbox" :value="item" v-model="hobbies">{{item}}
+        </label>
+        <hr>
+        <!-- v-model修饰符的使用 -->
+        <!-- 修饰符：lazy -->
+        <input type="text" v-model.lazy="lazyValue">
+        <p>{{lazyValue}}</p>
+        <hr>
+        <!-- 修饰符：number -->
+        <input type="number" v-model.number="numberValue">
+        <p>{{typeof numberValue}}</p>
+        <hr>
+        <!-- 修饰符：trim -->
+        <input type="numtextber" v-model.trim="trimValue">
+        <p>{{trimValue}}</p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: 'hello',
+            sex: '女',
+            isAgree: true, //单选框
+            hobbies: [], //多选框
+            fruit: 'b',
+            fruits: [],
+            array: ['a', 'b', 'c', 'd', 'f'],
+            // v-model 修饰符
+            lazyValue: 'hello',
+            numberValue: 25,
+            trimValue: ''
+        },
+        methods: {
+            valueChange(e) {
+                this.message = e.target.value;
+            }
+        },
+    })
+</script>
+
+</html>

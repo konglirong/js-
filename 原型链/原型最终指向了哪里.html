@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型最终指向了哪里</title>
+</head>
+
+<body>
+    <script>
+        // //人的构造函数
+        // function Person(age) {
+        //     this.age = age;
+        // };
+        // Person.prototype.eat = function() {
+        //         console.log("吃东西")
+        //     }
+        //     //学生构造函数
+        // function Student(sex) {
+        //     this.sex = sex;
+        // };
+        // Student.prototype.sayHi = function() {
+        //     console.log("你好！")
+        // };
+        // //改变了原型对象的指向
+        // Student.prototype = new Person(10);
+        // var stu = new Student("男");
+        // stu.eat();
+        // console.dir(Person)
+        function Person(age) {
+            this.age = age;
+        };
+
+        Person.prototype = {
+            eat: function() {
+                console.log("吃")
+            },
+        };
+        Person.prototype.sayHi = function() {
+            console.log("你好")
+        };
+        var per = new Person();
+        per.sayHi();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>沙箱</title>
+</head>
+
+<body>
+    <div>88888</div>
+    <div>88888</div>
+    <div>88888</div>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <script>
+        //沙箱：环境，黑盒，在一个虚拟的环境中模拟真实世界，做实验，实验结果和真实世界的结果是一样的，
+        //但是不会影响真实世界。
+        //沙箱
+        // (function() {
+        //     var num = 10;
+        //     console.log(num)
+        // })();
+        var getTag = 10;
+        var divObjs = 20;
+        (function() {
+            function getTag(tagName) {
+                return document.getElementsByTagName(tagName)
+            }
+            var divObjs = getTag("div")
+            for (i = 0; i < divObjs.length; i++) {
+                divObjs[i].style.border = "2px solid pink"
+            }
+        }());
+        console.log(getTag)
+        console.log(divObjs)
+
+        var obj = {
+            name: 123,
+            age: 19,
+            address: 'wuhan'
+        }
+        with(obj) {
+            console.log(name)
+        }
+    </script>
+</body>
+
+</html>

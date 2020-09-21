@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父子组件通信</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>父子组件通信</title>
+    </head>
+
+    <body>
+        <div id="app">
+            <p>{{message}}</p>
+            <!-- <my-cpn></my-cpn> -->
+
+            <!-- <cpn2></cpn2> -->
+            <cpn :carray="array" :cmessage="message"></cpn>
+        </div>
+        <template id="cpn">
+            
+        </template>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const cpn = {
+            template: `
+            <div>
+                <h2>我是第二个组件{{message}}</h2>
+                <p>我是内容，呵呵呵</p>
+                <li v-for="item in carray">{{item}}<li>
+            </div>`,
+            //props: ['carray', 'cmessage'],
+            props: {
+                //1.类型限制
+                //carray: Array,
+                //cmessage: String,
+
+                //2.提供一些默认值
+                cmessage: {
+                    type: String,
+                    default: 'aaa',
+                    require: true
+                },
+                carray: {
+                    type: Array,
+                    default () {
+                        return []
+                    }
+                },
+            }
+        };
+
+        //2.注册组件(全局组件)
+        // Vue.component('my-cpn', cpnC);
+        //3.使用组件
+        const app = new Vue({
+            el: "#app",
+            data: {
+                message: "你好",
+                array: ['a', 'b', 'c', 'd']
+            },
+            components: {
+                cpn
+                // cpn2: cpn2
+            }
+        });
+    </script>
+
+    </html>
+</body>
+
+</html>

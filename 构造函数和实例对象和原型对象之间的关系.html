@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>构造函数和实例对象和原型对象之间的关系</title>
+</head>
+
+<body>
+    <script>
+        // var arr = [4, 10, 20]
+        //通过构造函数实例对象，并初始化
+        /*
+        构造函数可以实例化对象
+        构造函数中有一个属性叫prototype,是构造函数的原型对象
+        构造函数的原型对象（prototype）中有一个constructor构造器，
+        这个构造器指向的就是自己所在的原型对象所在的构造函数。
+        实例对象的原型对象（_proto_）指向的是该构造函数的原型对象。
+        构造函数的原型对象（prototype）中的方法是可以被实例对象直接访问的。
+        */
+        function Person(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+        //简单写法
+        Person.prototype = {
+            //手动修改构造器的指向
+            constructor: Person,
+            height: '188',
+            weight: '55kg',
+            study: function() {
+                console.log('学习学习')
+            },
+            eat: function() {
+                console.log('吃饭')
+            }
+        }
+
+        // Person.prototype.height = "188";
+        // Person.prototype.weight = '55kg';
+        // Person.prototype.study = function() {
+        //     console.log('学习学习')
+        // }
+        // Person.prototype.eat = function() {
+        //         console.log('吃饭')
+        //     }
+        //     //实例化对象，并初始化
+        var stu = new Person('张张', '57', '女')
+        console.dir(Person)
+        console.dir(stu)
+    </script>
+</body>
+
+</html>

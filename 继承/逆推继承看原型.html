@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数中this的指向</title>
+</head>
+
+<body>
+    <script>
+        /*
+         * 函数中this的指向  
+         * 普通函数中的this是谁?     -----window
+         * 对象.方法中的this是谁?     ----当前的实例对象
+         * 定时器方法中的this是谁？  -----window
+         * 构造器函数中的this是谁？   ----当前的实例对象
+         * 原型对象方法中的this是谁？   ----当前的实例对象
+         */
+        function f1() {
+            console.log(this)
+        };
+        f1(); //window
+        //BOM：中顶级对象是window,浏览器中的所有的东西都是window的
+
+        //定时器中的this
+        // setInterval(function() {
+        //     console.log(this)
+        // }, 1000)
+
+        //构造函数中的this
+        // function Person() {
+        //     console.log('构造函数');
+        //     // this.sayHi = function() {
+        //     //     console.log(this)
+        //     // };
+        // };
+
+        // console.log(per)
+        // per.sayHi();
+
+        //对象的方法
+        function Person() {
+            this.play = function() {
+                console.log("玩")
+            };
+        }
+        var per = new Person();
+        per.play()
+        //对象中有_proto_，函数中应该有prototype
+        //如果既有prototype又有_proto_,那就既是函数也是对象
+        //所有的函数实际上都是Function的构造函数创建的
+    </script>
+</body>
+
+</html>

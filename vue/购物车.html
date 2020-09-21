@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="books.length">
+            <table border="1" cellspacing="0">
+                <thead>
+                    <th v-for="item in head">{{item}}</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in books">
+                        <td>{{index+1}}</td>
+                        <td>{{item.naem}}</td>
+                        <td>{{item.data}}</td>
+                        <!-- 过滤器 -->
+                        <td>{{item.price|showPrice}}</td>
+                        <td><button @click="decrement(index)" :disabled="item.number<=1">-</button>{{item.number}}<button @click="indrement(index)">+</button></td>
+                        <td><button @click="remove(index)">移除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h4>总价：{{total|showPrice}}</h4>
+        </div>
+        <div v-else>
+            <h2>购物车为空</h2>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+            el: "#app",
+            data: {
+                head: ['', "书籍名称", "出版日期", "价格", "购买数量", "操作"],
+                books: [{
+                    id: 001,
+                    naem: "你不知道的javascript",
+                    price: 69,
+                    data: '2006-9',
+                    number: 1,
+                }, {
+                    id: 002,
+                    naem: "代码大全",
+                    price: 105,
+                    data: '2006-9',
+                    number: 1,
+                }, {
+                    id: 003,
+                    naem: "javascript高级编程",
+                    price: 80,
+                    data: '2006-9',
+                    number: 1,
+                }, {
+                    id: 004,
+                    naem: "深入理解计算机原理",
+                    price: 59,
+                    data: '2006-9',
+                    number: 1,
+                }]
+            },
+            computed: {
+                total() {
+                    let total = 0;
+                    for (book of this.books) {
+                        total += book.price * book.number
+                    }
+                    return total
+                }
+            },
+            methods: {
+                decrement(index) {
+                    this.books[index].number--
+                },
+                indrement(index) {
+                    this.books[index].number++
+                },
+                remove(index) {
+                    this.books.splice(this.books[index], 1)
+                },
+            },
+            // 过滤器
+            filters: {
+                showPrice(price) {
+                    return '￥' + price.toFixed(2)
+                }
+            }
+        })
+        //编程范式：命令式编程/声明式编程
+        //编程范式：面向对象编程（第一公民：对象）/函数式编程（第一公民：函数）
+    const nums = [10, 20, 50, 745, 562, 521, 66, 52];
+    // let newArray = [];
+    // for (let n of nums) {
+    //     if (n < 100) {
+    //         newArray.push(n)
+    //     }
+    // }
+    // console.log(newArray)
+
+    let newArray = nums.filter(function(n) {
+        return n < 100;
+    })
+    console.log(newArray)
+
+    let new2Array = nums.map(function(n) {
+        return n * 2
+    })
+    console.log(new2Array)
+    let total = nums.reduce(function(prevalue, n) {
+        return prevalue + n
+    })
+    console.log(total)
+
+    let newTotal = nums.filter(function(n) {
+        return n < 100
+    }).map(function(n) {
+        return n * 2
+    }).reduce(function(preValue, n) {
+        return preValue + n
+    })
+    console.log(newTotal)
+</script>
+
+</html>

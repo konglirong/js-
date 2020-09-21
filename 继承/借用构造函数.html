@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>借用构造函数</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age, sex, weight) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.weight = weight;
+        }
+        Person.prototype.sayHi = function() {
+            console.log("你好！")
+        };
+
+        function Student(name, age, sex, weight, score) {
+            //借用构造函数
+            Person.call(this, name, age, sex, weight)
+            this.score = score;
+        };
+        var stu1 = new Student("小明", 20, "男", "50kg", "100");
+        var stu2 = new Student("小红", 20, "男", "50kg", "120");
+        var stu3 = new Student("小丽", 20, "男", "50kg", "130");
+        stu1.sayHi();
+        console.dir(stu1)
+        console.dir(stu2)
+        console.dir(stu3)
+            //为了数据共享，改变原型指向，做到了继承---通过改变原型指向实现的继承
+            //缺陷：因为改变了原型指向的同时实现继承，直接初始化了属性，继承过来的属性值都是一样的。
+            //只能重新调用对象的的属性进行重新赋值。
+
+
+        //解决方案：继承的时候，不用改变原型的指向，直接调用父级的构造函数的方式来为属性赋值就可以了---借用构造函数。
+
+        //借用构造函数：把要继承的父级的构造函数拿过来，使用一下就可以了。
+
+        //借用构造函数：构造函数名字.call(当前对象，属性，属性，属性...)；
+        //解决了属性继承，并且值不重复的问题。
+        //缺陷：父级类别中的方法不能继承
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型的指向是否可以改变</title>
+</head>
+
+<body>
+    <script>
+        //构造函数中的this就是实例对象
+        //原型对象中方法中的this就是实例对象
+        function Person(age) {
+            this.age = age;
+            console.log(this)
+        };
+        Person.prototype.eat = function() {
+            console.log(this)
+            console.log('你好')
+        };
+
+        function Student() {};
+        Student.prototype.study = function() {
+            console.log('好好学习，天天向上')
+        };
+        Student.prototype = new Person(10);
+        // var per = new Person(20)
+        // per.eat();
+    </script>
+</body>
+
+</html>

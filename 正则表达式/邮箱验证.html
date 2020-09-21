@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>验证邮箱</title>
+</head>
+
+<body>
+    <div>
+        邮箱：<input type="text" value="" id="email">
+    </div>
+</body>
+<script>
+    document.getElementById("email").onblur = function() {
+        //判断输入的是否是邮箱
+        var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+        if (reg.test(this.value)) {
+            this.style.backgroundColor = "green";
+        } else {
+            this.style.backgroundColor = "red";
+        }
+        //匹配中文的正则表达式
+        // [\u4e00-\u9fa5]
+    };
+    var str = "中国移动：10086，中国联通：10010，中国电信：10000";
+    // var array = str.match(/\d{5}/g);
+    // console.log(array)
+    //等价于
+    var reg = /\d{5}/g;
+    var result = reg.exec(str);
+    while (result != null) {
+        console.log(result[0])
+        result = reg.exec(str)
+    }
+    // console.log(array)
+
+    // //提取这里的日
+    // var str = "2019-12-26";
+    // var array = str.match(/(\d{4})[-](\d{2})[-](\d{2})/g)
+    //     //获取正则表达式的第三组
+    // console.log(RegExp.$3)
+</script>
+
+</html>

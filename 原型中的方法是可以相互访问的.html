@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型中的方法是可以相互访问的</title>
+</head>
+
+<body>
+    <script>
+        function Animal(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        //原型中添加方法
+        Animal.prototype.eat = function() {
+            console.log("吃东西")
+            this.play();
+        }
+        Animal.prototype.play = function() {
+            console.log("玩")
+        }
+        Animal.prototype.sleep = function() {
+            console.log("睡着了")
+        }
+        var dog = new Animal("安安", 2)
+        dog.eat()
+            //原型中的方法可以相互调用
+            //实例对象使用的属性或者方法，先在实例中查找，找到了则直接使用，找不到则取实例对象的_proto_指向的原型对象prototype中找，找到了则使用，找不到则报错。
+    </script>
+</body>
+
+</html>

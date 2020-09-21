@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型及原型链</title>
+</head>
+
+<body>
+    <script>
+        //使用对象------>使用对象中的属性和对象中的方法，使用对象就要先有构造函数
+        //构造函数
+        function Preson(name, age) {
+            //属性
+            this.name = name;
+            this.age = age;
+            this.sayHi = function() {
+                console.log("你好")
+            };
+        }
+        //实例化对象，并初始化
+        var per = new Preson("小明", 20);
+        per.sayHi();
+        /*
+        如果想要使用一些属性和方法，并且属性的值在每个对象中都是一样的，方法在每个对象中的操作也都是一样的，
+        那么，为了共享数据，节省内存空间，是可以把属性和方法通过原型的方式进行赋值
+        
+        原型链：是一种关系，实例对象和原型对象之间的关系，关系是通过原型（_proto_）来联系的。
+        //原型指向可以改变
+        实例对象的原型_proto_指向的是该对象所在的构造函数的原型对象。
+        构造函数的原型对象（prototype）指向如果改变了，实例对象的原型（_proto_）指向也会发生改变。
+
+        //原型指向是可以改变的
+        //实例对象和原型对象之间的关系是通过_proto_原型来联系的，这个关系就是原型链。
+        */
+        console.dir(per);
+        console.dir(Preson);
+        console.log(Date.now())
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流</title>
+    <style>
+        #div1 {
+            border: 1px solid #ccc;
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1" draggable="true"></div>
+</body>
+<script>
+    const oDiv = document.getElementById("div1")
+
+    function throttle(fn, delay = 100) {
+        let timer = null;
+        return function() {
+            if (timer) {
+                return
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, arguments)
+                    //需要用事件对象的时候直接调  fn() 会报错
+                timer = null
+            }, delay)
+        }
+    }
+
+    oDiv.addEventListener('drag', throttle(function(e) {
+        console.log(e.offsetX, e.offsetY)
+    }), 200)
+</script>
+
+</html>

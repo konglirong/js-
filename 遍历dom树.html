@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>遍历dom树</title>
+</head>
+
+<body>
+    <div class="main">
+        <p>789</p>
+        <ul>
+            <li>788</li>
+            <li>788</li>
+            <li>788</li>
+            <li>788</li>
+        </ul>
+    </div>
+    <p>999</p>
+</body>
+<script>
+    //获取页面中的根节点
+    var root = document.documentElement;
+    //根据根节点，调用fn的函数，显示的是根节点的名字
+    function forDOM(root1) {
+        //调用f1,显示的是节点的名字
+        //f1(root1);
+        //获取根节点中所有的子节点
+        var children = root1.children;
+        forChildren(children)
+    };
+    //根据节点获取这个节点中所有的子节点
+    function forChildren(children) {
+        //遍历所有的子节点
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            //显示子节点的名字
+            f1(child);
+            //判断child下面是否有子节点
+            child.children && forDOM(child)
+        }
+    };
+    forDOM(root);
+
+    function f1(node) {
+        console.log(node.nodeName)
+    };
+    //节点：nodeName,nodeType,nodeValue
+</script>
+
+</html>

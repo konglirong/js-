@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>生成随机小方块</title>
+    <style>
+        .map {
+            width: 800px;
+            height: 600px;
+            background: #ccc;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="map"></div>
+</body>
+<script>
+    //产生随机数对象的
+    (function(window) {
+        function Random() {};
+        Random.prototype.getRandom = function(min, max) {
+            return Math.floor(Math.random() * (max - min) + min)
+        };
+        //把局部变量暴露给window顶级对象，就成了全局对象
+        window.Random = new Random();
+    })(window); //自调用构造函数的方式，分号一定要加上
+
+    //产生小方块对象
+    (function(window) {
+        console.log(Random.getRandom(0, 5))
+        var map = document.querySelector(".map")
+            //食物的构造函数
+        function Food(width, height, color) {
+            this.width = width || 20;
+            this.height = height || 20;
+            //横坐标，纵坐标
+            this.x = 0; //横坐标随机产生的
+            this.y = 0; //纵坐标随机产生的
+            this.color = color; //小方块的颜色
+            this.element = document.createElement("div"); //小方块的元素
+        }
+        //初始化小方块显示的效果及位置
+        Food.prototype.init = function(map) {
+            //设置小方块的样式
+            var div = this.element;
+            div.style.position = "absolute"; //脱离文档流
+            div.style.width = this.width + 'px';
+            div.style.height = this.height + 'px';
+            div.style.backgroundColor = this.color;
+            //把小方块加到map地图中;
+            map.appendChild(div);
+            this.render();
+        };
+        //产生随机位置的
+        Food.prototype.render = function() {
+            //随机产生横纵坐标
+            var x = Random.getRandom(0, map.offsetWidth / this.width) * this.width;
+            var y = Random.getRandom(0, map.offsetHeight / this.height) * this.height;
+            this.x = x;
+            this.y = y;
+            var div = this.element;
+            div.style.left = this.x + 'px';
+            div.style.top = this.y + 'px';
+        }
+        var fd = new Food(20, 20, 'green');
+        fd.init(map);
+    })(window);
+    //原型？
+    //实例对象中有_proto_这个属性，叫原型，也可以叫原型对象，也是一个对象，这个属性是给浏览器使用，不是标准的属性。
+    //构造函数中有prototype这个属性，叫原型，也可以叫原型对象，也是一个对象，这个属性是给程序员使用的，是一个标准的属性。
+    /*
+    实例对象的_proto_和构造函数中的prototype相等
+    又因为实例对象是通过构造函数来创建的，构造函数中有原型对象prototype
+    实例对象的_proto_指向了构造函数的原型对象prototype
+    */
+</script>
+
+</html>

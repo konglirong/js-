@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>全选框</title>
+</head>
+
+<body>
+    <form>
+        <table cellpadding="5px" cellspacing="0px" align="center">
+            <!--表头分类部分-->
+            <tr style="height: 65px;" valign="bottom">
+                <th><input type="checkbox" name="cb" class="allS" id="allS" />全选</th>
+            </tr>
+            <!--内容商品第一行-->
+            <!-- <tr>
+                <td colspan="4" style="border-bottom: dotted 2px #999999"></td>
+            </tr> -->
+            <tr>
+                <td><input type="checkbox" name="cb" class="ch" /></td>
+            </tr>
+            <!--内容商品第二行-->
+            <tr>
+                <td colspan="4" style="border-bottom: dotted 2px #999999"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="cb" class="ch" /></td>
+            </tr>
+            <!--内容商品第三行-->
+            <tr>
+                <td colspan="4" style="border-bottom: dotted 2px #999999"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="cb" class="ch" /></td>
+            </tr>
+            <!--内容商品第四行-->
+            <tr>
+                <td colspan="4" style="border-bottom: dotted 2px #999999"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="cb" class="ch" /></td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+    document.getElementById("allS").onclick = function() {
+        var check = document.getElementsByName('cb');
+        console.log(check.length)
+        for (let i = 0; i < check.length; i++) {
+            if (this.checked) {
+                check[i + 1].checked = true
+            } else {
+                check[i + 1].checked = false
+            }
+        }
+    }
+
+    var all = document.getElementById("allS")
+    var ch = document.getElementsByClassName("ch")
+    for (let i = 0; i < ch.length; i++) {
+        ch[i].onclick = function() {
+            var count = 0;
+            for (var i = 0; i < ch.length; i++) {
+                if (ch[i].checked) {
+                    count++
+                }
+                if (count == ch.length) {
+                    all.checked = true;
+                } else {
+                    all.checked = false;
+                }
+            }
+        }
+    }
+</script>
+
+</html>

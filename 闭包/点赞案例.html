@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点赞</title>
+    <style>
+        li {
+            list-style-type: none;
+            float: left;
+            width: 10%;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/css.less">
+</head>
+
+<body>
+    <li>
+        <input type="button" value="赞(1)">
+    </li>
+    <li>
+        <input type="button" value="赞(1)">
+    </li>
+    <li>
+        <input type="button" value="赞(1)">
+    </li>
+    <li>
+        <input type="button" value="赞(1)">
+    </li>
+</body>
+<script>
+    //获取所有的按钮
+    //根据标签名字获取元素
+    function my$(tagName) {
+        return document.getElementsByTagName(tagName)
+    };
+    //闭包缓存数据
+    function getValue() {
+        var value = 2;
+        return function() {
+            this.value = "赞(" + (value++) + ")";
+        }
+    };
+    var btnObjs = my$("input");
+    // var value = 1;
+    //循环遍历按钮
+    for (var i = 0; i < btnObjs.length; i++) {
+        btnObjs[i].onclick = getValue();
+    }
+</script>
+
+</html>

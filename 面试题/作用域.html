@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border-bottom: 1px solid #fff000;
+            position: relative;
+        }
+        
+        .box:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: #ff0000;
+        }
+        
+        @media screen and (-webkit-min-device-pixel-ratio:2) {
+            .box:before {
+                transform: scaleY(0.5);
+            }
+        }
+        
+        @media screen and (-webkit-min-device-pixel-ratio:3) {
+            .box:before {
+                transform: scaleY(0.3333);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    window.onload = function() {
+        //像素比
+        var dpr = window.devicePixelRatio;
+        console.log(dpr);
+        //缩放比例
+        var scale = 1 / dpr;
+        //获取屏幕宽度
+        var width = document.documentElement.clientWidth;
+        //获取mate标签
+        var metaNode = document.querySelector('meta[name="viewport"]');
+        //设置mate标签
+        metaNode.setAttribute('content', 'width=device-width, initial-scale=' + scale)
+            //页面中元素宽度、高度、比例反乘回来
+        var htmlNode = document.querySelector('html');
+        htmlNode.style.fontSize = width * dpr + 'px'
+    }
+</script>
+
+</html>

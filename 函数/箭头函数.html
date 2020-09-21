@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>箭头函数</title>
+</head>
+
+<body>
+    <script>
+        //没有参数
+        const ccc = () => {
+
+            }
+            //两个参数
+        const sum = (num1, num2) => {
+                return num1 + num2
+            }
+            //一个参数
+        const power = num => {
+                return num * num
+            }
+            //返回值
+        const test = () => {
+            console.log('hello word');
+
+        }
+        const mul = (num1, num2) => num1 + num2
+        const demo = () => console.log(8888);
+        demo()
+
+        // setTimeout(function() {
+        //     console.log(this)
+        // }, 200);
+
+        // setTimeout(() => {
+        //     console.log(this)
+        // }, 500);
+
+        //结论：箭头函数中的this如何查找的呢？
+        //答案：向外层作用域中，一层层查找this，直到有this的定义。
+        const obj = {
+            aaa() {
+                setTimeout(function() {
+                    console.log(this) //window
+                }, 200);
+                setTimeout(() => {
+                    console.log(this) //obj
+                }, 500);
+            },
+        }
+        obj.aaa()
+    </script>
+</body>
+
+</html>

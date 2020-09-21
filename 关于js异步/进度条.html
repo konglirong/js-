@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>进度条</title>
+    <style>
+        #loading {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: blueviolet;
+            color: #fff;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading"></div>
+</body>
+<script>
+    var loading = document.getElementById("loading")
+
+    function handle() {
+        let i = 0;
+        (function run() {
+            loading.innerHTML = i;
+            loading.style.width = i + '%'
+            if (++i <= 100) {
+                setTimeout(run, 100);
+            }
+        })();
+    }
+    handle()
+</script>
+
+</html>

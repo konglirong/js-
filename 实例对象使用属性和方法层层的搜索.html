@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实例对象使用的属性和方法层层的搜索</title>
+</head>
+
+<body>
+    <script>
+        //通过自调用函数产生一个随机数对象，在自调用函数外面，调用该随机数对象方法产生随机数
+        //获取1-5之间的随机数，不包含5
+        (function(window) {
+            //产生随机数的构造函数
+            function Random() {}
+            //在原型对象中添加方法
+            Random.prototype.getRandom = function(min, max) {
+                return Math.floor(Math.random() * (max - min) + min)
+            };
+            window.random = new Random();
+        })(window)
+        var rm = random;
+        var num = random.getRandom(0, 5);
+        console.log(num)
+    </script>
+</body>
+
+</html>

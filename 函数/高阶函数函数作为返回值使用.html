@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高阶函数函数作为返回值使用</title>
+</head>
+
+<body>
+    <script>
+        var num = 10;
+        console.log(typeof num);
+        var obj = {};
+        //判断这个对象是不是某个类型的
+        console.log(obj instanceof Object);
+        //获取某个对象的数据类型的样子
+        //Object.prototype.toString.call(对象);   //此时得到的就是这个对象的数据类型的样子
+
+        //此时输出的的Object的数据类型  [object Object]
+        console.log(Object.prototype.toString());
+        //输出的数组的数据类型  [object Array]
+        console.log(Object.prototype.toString.call([]))
+
+        var arr = [10, 20, 30];;
+        console.log(Object.prototype.toString.call(arr));
+        console.log(Object.prototype.toString.call(new Date()));
+
+        //获取某个对象的类型是不是你传入的类型
+        function getFunc(type) {
+            return function(obj) {
+                return Object.prototype.toString.call(obj) === type
+            };
+        };
+        var ff = getFunc("[object Array]");
+        var result = ff([10, 20, 30]);
+        console.log(result)
+
+        var ff1 = getFunc("[object Date]");
+        var dt = new Date();
+        var result1 = ff1(dt)
+        console.log(result1)
+    </script>
+</body>
+
+</html>

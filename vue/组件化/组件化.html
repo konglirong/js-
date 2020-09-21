@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件化</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <!-- <my-cpn></my-cpn> -->
+
+        <!-- <cpn2></cpn2> -->
+        <cpn></cpn>
+    </div>
+    <div id="app2">
+        <cpn></cpn>
+    </div>
+</body>
+<!-- 模板抽离写法 -->
+<script type="text/x-template" id="cpn">
+    <div>
+        <h2>我是第二个组件{{message}}</h2>
+        <p>我是内容，呵呵呵</p>
+    </div>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    //1.创建组件构造器对象
+    // const cpn1 = Vue.extend({
+    //     template: `
+    //         <div>
+    //             <h2>我是第一个组件</h2>
+    //             <p>我是内容，哈哈哈</p>
+    //         </div>`
+    // });
+    // const cpn2 = Vue.extend({
+    //     template: `
+    //         <div>
+    //             <h2>我是第二个组件</h2>
+    //             <p>我是内容，呵呵呵</p>
+    //             <cpn1></cpn1>
+    //         </div>`,
+    //     components: {
+    //         cpn1: cpn1,
+    //     }
+    // });
+    Vue.component('cpn', {
+        template: "#cpn",
+        data() {
+            return {
+                message: '你好'
+            }
+        }
+    });
+    //2.注册组件(全局组件)
+    // Vue.component('my-cpn', cpnC);
+    //3.使用组件
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: "nihao"
+        },
+        components: {
+            // cpn1: cpn1,
+            // cpn2: cpn2
+        }
+    });
+    const app2 = new Vue({
+        el: "#app2",
+    })
+</script>
+
+</html>

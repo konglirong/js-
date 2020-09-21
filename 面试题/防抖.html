@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            height: 1000px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">按钮</button>
+    <div class="box"></div>
+    <script>
+        //节流
+        function throttle(fn, delay) {
+            //记录上一次函数触发的时间
+            var lastTime = 0;
+            return function() {
+                //记录当前函数触发的时间
+                var nowTime = Date.now();
+                if (nowTime - lastTime > delay) {
+                    //修正this指向
+                    fn.call(this);
+                    //同步时间
+                    lastTime = nowTime
+                }
+            }
+        }
+        // document.onscroll = throttle(function() {
+        //     console.log('函数被触发了' + Date.now())
+        // }, 500)
+
+
+        //防抖函数：一个需要频繁触发的函数，在规定时间内，只让最后一次生效，前面的不生效
+        function debounce(fn, delay) {
+            //记录上一次的延时器
+            var timer = null;
+            return function() {
+                //清除上一次延时器
+                clearTimeout(timer);
+                //重新设置新的延时器
+                timer = setTimeout(function() {
+                    fn.apply(this);
+                }, delay)
+            }
+        }
+        document.getElementById('btn').onclick = debounce(function() {
+            console.log('函数被触发了' + Date.now())
+        }, 1000)
+    </script>
+</body>
+
+</html>
