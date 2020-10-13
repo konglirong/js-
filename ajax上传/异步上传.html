@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步上传</title>
+    <style>
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            margin-top: 100px;
+        }
+        
+        .progress-bar {
+            width: 300px;
+            height: 40px;
+            border: 1px solid #666;
+            text-align: center;
+        }
+        
+        .progress {
+            width: 0;
+            height: 100%;
+            background-color: green;
+        }
+        
+        .error-info {
+            line-height: 40px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="file" id="file" multiple />
+    <input type="submit" id="submitBtn" value="上传">
+    <ul class="progress-wrap">
+        <!-- <li class="progress-bar"> -->
+        <!-- <div class="progress"></div> -->
+        <!-- <span class="error-info">文件类型错误</span> -->
+        <!-- </li> -->
+    </ul>
+</body>
+<script>
+    var oFile = document.getElementById('file'),
+        oSubmitBtn = document.getElementById('submitBtn'),
+        oProgressWrap = document.getElementsByClassName('progress-wrap')[0];
+    oFile.onchange = function() {
+        var files = oFile.files,
+            fileLen = files.length;
+        if (fileLen <= 0) {
+            console.log('您还没有选择图片')
+            return;
+        }
+        if (fileLen > 5) {
+            console.log('对多只可同时上传5张图片')
+            return;
+        }
+
+        // oProgressWrap.innerHTML = '';
+        var fileName = '',
+            fileSize = 0,
+            maxSize = 1024 * 1024,
+            fd = null,
+            errorInfo = '';
+        for (var i = 0; i < files; i++) {
+            fileName = files[i].name;
+            fileSize = files[i].size;
+
+            if (!/\.(gif|jpg|png)$/.test(fileName)) {
+                errorInfo = fileName + '文件不是图片类型'
+            }
+            if (fileSize > maxSize) {
+                errorInfo = fileName + '超过可上传大小'
+            }
+            var oProgressBar = document.createElement('li');
+            oProgressBar.className = 'progress-bar';
+            oProgressWrap.appendChild(oProgressBar);
+            if (errorInfo !== '') {
+                oProgressBar.innerHTML = '<span class="error-info">' + errorInfo + '</span>'
+            } else {
+                oProgressBar.innerHTML = '<div class="progress"></div>'
+                fd = new FormData();
+                fd.append('file', files[i]);
+                //ajax上传
+                var o = window.XMLHttpRequest ?
+                    new window.XMLHttpRequest() :
+                    new ActiveXObject("Microsoft.XMLHTTP");
+                o.open('post', 'server/upload.php');
+                (function(i) {
+                    o.upload.onprpgress = function(e) {
+                        var e = e || window.event,
+                            percent = e.loaded / e.total * 100 + '%',
+                            thisProgressBar = oProgressWrap.getElementsByClassName('progress-bar')[i];
+                        thisProgressBar.getElementsByClassName('progress')[0].style.width = percent;
+                        console.log(percent)
+                        console.log(o)
+                    }
+                })(i)
+                o.send(fd);
+            }
+        }
+    }
+</script>
+
+</html>

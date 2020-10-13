@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="username"></br>
+    <input type="text" id="password"></br>
+    <input type="text" id="address"></br>
+
+    <input type="submit" id="submitBtn" value="上传">
+</body>
+<script>
+    var username = document.getElementById("username");
+    var password = document.getElementById("password");
+    var address = document.getElementById("address");
+
+    var btn = document.getElementById("submitBtn")
+    var fd = new FormData();
+    btn.onclick = function() {
+        fd.append('username', username.value)
+        fd.append('password', password.value)
+        fd.append('address', address.value)
+
+        console.log(fd) //FormData {}  
+
+        console.log('username:' + fd.get("username")) //username:admin
+        console.log('password:' + fd.get("password")) //password:123456
+        console.log('address:' + fd.get("address")) //address:武汉
+
+        fd.set("username", '李四') //可以设置
+        fd.has("username") //true 
+        fd.delete("username") //删除 没有的字段打印的是null
+        console.log('username:' + fd.get("username")) //username:admin
+
+    }
+</script>
+
+</html>
